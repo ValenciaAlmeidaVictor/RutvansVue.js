@@ -334,6 +334,11 @@ return [
             'icon' => 'fas fa-fw fa-user',
         ],
         [
+            'text' => 'Tipon Tarifa',
+            'url' => 'tipos-tarifas',
+            'icon' => 'fas fa-fw fa-tags'
+        ],
+        [
             'text' => 'change_password',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
