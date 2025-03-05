@@ -16,4 +16,3 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-Route::get('/tipos-tarifas', [TipoTarifaController::class, 'index'])->name('tipos-tarifas.index');
