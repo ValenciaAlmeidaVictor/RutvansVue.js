@@ -12,7 +12,7 @@
             <h3 class="card-title">Administrar Boletos</h3>
         </div>
         <div class="card-body">
-            @livewire('boletos') <!-- Cambié el componente a 'boletos' en lugar de 'usuarios' -->
+            @livewire('boletos')
         </div>
     </div>
 @endsection
