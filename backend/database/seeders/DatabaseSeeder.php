@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Spatie\Permission\Models\Role; // Si estás usando Spatie Laravel Permission
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,11 +13,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $this->call(RolesSeeder::class);
+        // Crear el superadministrador
+        $superAdmin = User::firstOrCreate(
+            ['email' => 'admin@material.com'],
+            [
+                'name' => 'Super Admin',
+                'password' => bcrypt('secret'),
+            ]
+        );
+        
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Asignar rol de superadministrador utilizando Spatie Laravel Permission
+        $role = Role::firstOrCreate(['name' => 'Super Admin']);
+        $superAdmin->assignRole($role);
     }
+    
+
 }

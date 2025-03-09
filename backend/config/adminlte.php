@@ -320,14 +320,34 @@ return [
             'url' => 'admin/blog',
             'can' => 'manage-blog',
         ],
+        ['header' => 'Administrador'],
         [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
+            'text' => 'Roles y permisos',
+            'icon' => 'fas fa-user-shield',
+            'submenu' => [
+                [
+                    'text' => 'Roles',
+                    'icon' => 'fas fa-user-tag',
+                    'url' => 'roles',
+                ],
+                [
+                    'text' => 'Permisos',
+                    'icon' => 'fas fa-key',
+                    'url' => 'permissions',
+                ],
+                [
+                    'text' => 'Asignar Permisos',
+                    'icon' => 'fas fa-user-shield', // Ícono más representativo
+                    'url' => 'roles-permissions',
+                ],                
+            ]
         ],
-        ['header' => 'account_settings'],
+        ['header' => 'Usuario'],
+        [
+            'text' => 'Tipon Tarifa',
+            'url' => 'tipos-tarifas',
+            'icon' => 'fas fa-fw fa-tags'
+        ],
         [
             'text' => 'profile',
             'url' => 'admin/settings',
@@ -337,60 +357,6 @@ return [
             'text' => 'change_password',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
-        ],
-        [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
-        ],
-        [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
         ],
     ],
 
@@ -475,11 +441,11 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
                 ],
             ],
