@@ -17,3 +17,11 @@ Route::middleware([
     })->name('dashboard');
 });
 Route::get('/tipos-tarifas', [TipoTarifaController::class, 'index'])->name('tipos-tarifas.index');
+
+use App\Http\Controllers\RolesController;
+use App\Http\Controllers\PermissionsController;
+use App\Http\Controllers\RolesPermissionsController;
+
+Route::get('/roles', [RolesController::class, 'index'])->name('roles.index');
+Route::get('/permissions', [PermissionsController::class, 'index'])->name('permissions.index');
+Route::get('/roles-permissions', [RolesPermissionsController::class, 'index'])->name('roles-permissions.index');
