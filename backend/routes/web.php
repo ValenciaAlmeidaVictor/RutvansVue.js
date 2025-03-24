@@ -1,16 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Boletos;
-use App\Livewire\Usuarios;
-
-Route::view('/usuarios', 'Usuarios.usuarios')->name('usuarios');
-Route::view('/boletos', 'Boletos.boletos')->name('boletos');
-
-
-
-
-
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,3 +15,29 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+
+
+use App\Livewire\VentaComponent;
+use App\Livewire\LocalidadComponent;
+use App\Livewire\HorarioComponent;
+
+Route::get('/ventas', function () {
+    return view('Ventas.ventas');
+})->name('ventas.index');
+
+Route::get('/ventas/data', [VentaComponent::class, 'getVentas'])->name('ventas.data');
+
+Route::get('/tipotarifa', [TipoTarifaController::class, 'index'])->name('tipotarifa.index');
+
+
+Route::get('/localidades', function () {
+    return view('Localidades.localidades');
+})->name('localidades.index');
+
+Route::get('/horarios', function () {
+    return view('Horarios.horarios');
+})->name('horarios.index');
+
+// Ruta para la tabla con DataTables ServerSide
+// Route::get('/ventas/data', [VentaController::class, 'getVentas'])->name('ventas.data');

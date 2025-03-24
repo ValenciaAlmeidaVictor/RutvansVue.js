@@ -9,15 +9,24 @@ class Horario extends Model
 {
     use HasFactory;
 
-    protected $table = 'horarios';
-    protected $primaryKey = 'idHorario'; 
+    // Especificar el nombre de la tabla
+    protected $table = 'schedules';
 
-    public $timestamps = false;
+    // Definir los nombres de las columnas correctas
+    protected $fillable = ['departure_time', 'arrival_time', 'day'];
 
-    protected $fillable = [
-        'horaSalida',
-        'horaLlegada',
-        'dia',
-    ];
+    // Si la base de datos usa nombres de columna diferentes a las propiedades del modelo
+    public function getDepartureTimeAttribute($value)
+    {
+        return $value;  // Puedes hacer transformaciones si es necesario
+    }
+
+    public function setDepartureTimeAttribute($value)
+    {
+        $this->attributes['departure_time'] = $value;
+    }
+
+    // Puedes definir otros accesores y mutadores si es necesario
 }
+
 

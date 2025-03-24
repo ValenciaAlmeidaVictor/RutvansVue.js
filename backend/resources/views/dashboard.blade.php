@@ -13,6 +13,7 @@
         </div>
         <div class="card-body">
             <p>Aquí puedes gestionar tu aplicación.</p>
+
         </div>
     </div>
 @endsection
