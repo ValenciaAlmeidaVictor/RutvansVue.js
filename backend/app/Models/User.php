@@ -66,4 +66,18 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function adminlte_profile_url()
+    {
+        return route('profile.show');
+    }
+    
+    public function adminlte_image()
+    {
+        return $this->profile_photo_url;
+    }
+    public function adminlte_desc()
+    {
+        return $this->description ?? 'Sin descripción'; // Ajusta según tus necesidades
+    }
 }

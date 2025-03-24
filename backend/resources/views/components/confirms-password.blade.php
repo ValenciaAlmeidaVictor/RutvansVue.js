@@ -1,4 +1,4 @@
-@props(['title' => __('Confirm Password'), 'content' => __('For your security, please confirm your password to continue.'), 'button' => __('Confirm')])
+@props(['title' => __('Confirmar contraseña'), 'content' => __('Para su seguridad, por favor confirme su contraseña para continuar.'), 'button' => __('Confirmar')])
 
 @php
     $confirmableId = md5($attributes->wire('then'));
@@ -17,30 +17,31 @@
 @once
 <x-dialog-modal wire:model.live="confirmingPassword">
     <x-slot name="title">
-        {{ $title }}
+        <h5 class="modal-title">{{ $title }}</h5>
     </x-slot>
 
     <x-slot name="content">
-        {{ $content }}
+        <p>{{ $content }}</p>
 
         <div class="mt-4" x-data="{}" x-on:confirming-password.window="setTimeout(() => $refs.confirmable_password.focus(), 250)">
-            <x-input type="password" class="mt-1 block w-3/4" placeholder="{{ __('Password') }}" autocomplete="current-password"
-                        x-ref="confirmable_password"
-                        wire:model="confirmablePassword"
-                        wire:keydown.enter="confirmPassword" />
-
-            <x-input-error for="confirmable_password" class="mt-2" />
+            <div class="form-group">
+                <x-input type="password" class="form-control" placeholder="{{ __('Contraseña') }}" autocomplete="current-password"
+                         x-ref="confirmable_password"
+                         wire:model="confirmablePassword"
+                         wire:keydown.enter="confirmPassword" />
+                <x-input-error for="confirmable_password" class="text-danger mt-2" />
+            </div>
         </div>
     </x-slot>
 
     <x-slot name="footer">
-        <x-secondary-button wire:click="stopConfirmingPassword" wire:loading.attr="disabled">
-            {{ __('Cancel') }}
-        </x-secondary-button>
+        <button type="button" class="btn btn-secondary" wire:click="stopConfirmingPassword" wire:loading.attr="disabled">
+            {{ __('Cancelar') }}
+        </button>
 
-        <x-button class="ms-3" dusk="confirm-password-button" wire:click="confirmPassword" wire:loading.attr="disabled">
+        <button type="button" class="btn btn-primary ms-3" dusk="confirm-password-button" wire:click="confirmPassword" wire:loading.attr="disabled">
             {{ $button }}
-        </x-button>
+        </button>
     </x-slot>
 </x-dialog-modal>
 @endonce
