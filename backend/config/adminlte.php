@@ -342,6 +342,12 @@ return [
                 ],                
             ]
         ],
+        ['header' => 'Rutas'],
+        [
+            'text' => 'Crear localidades',
+            'url' => 'localidades',
+            'icon' => 'fas fa-fw fa-tags'
+        ],
         ['header' => 'Usuario'],
         [
             'text' => 'Tipon Tarifa',
