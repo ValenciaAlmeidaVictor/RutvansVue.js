@@ -3,22 +3,27 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\Localidad;
 
 class LocalidadComponente extends Component
 {
-    public $latitude;
     public $longitude;
+    public $latitude;
+    public $locality;
+    public $street;
+    public $postal_code;
 
-    protected $listeners = ['updateLocation'];
-
-    public function updateLocation($latitude, $longitude)
+    // Método para guardar en la base de datos
+    public function saveLocation()
     {
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
-
-        // Puedes realizar lógica adicional, como guardar en la base de datos
+        Localidad::create([
+            'longitude' => $this->longitude,
+            'latitude' => $this->latitude,
+            'locality' => $this->locality,
+            'street' => $this->street,
+            'postal_code' => $this->postal_code,
+        ]);
     }
-
     public function render()
     {
         return view('livewire.localidad-componente');

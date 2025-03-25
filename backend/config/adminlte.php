@@ -347,7 +347,7 @@ return [
         [
             'text' => 'Crear localidades',
             'url' => 'localidades',
-            'icon' => 'fas fa-fw fa-tags'
+            'icon' => 'fas fa-map-marker-alt'
         ],
         ['header' => 'Usuario'],
 
