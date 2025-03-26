@@ -1,23 +1,24 @@
-<?php
-
-namespace App\Http\Controllers;
+<?php  
+namespace App\Http\Controllers;  
 
 use Illuminate\Http\Request;
 use App\Models\Localidad;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Log;  
 
-class LocalidadesController extends Controller
+class LocalidadesController extends Controller 
 {
-    public function index()
+    public function index()     
     {
         // Cargar todas las localidades incluyendo el ID
-        $localidades = Localidad::select('id', 'longitude', 'latitude', 'locality', 'street', 'postal_code')->get();
+        $localidades = Localidad::select('id', 'longitude', 'latitude', 'locality', 'street', 'postal_code')->get(); 
 
-        return view('localidades.index', compact('localidades'));
-    }
+        $localidadesCount = Localidad::count();
 
+        return view('localidades.index', compact('localidades', 'localidadesCount'));
+    
+    } 
 
-    public function store(Request $request)
+    public function store(Request $request)     
     {
         // Validar y guardar la nueva localidad
         $validated = $request->validate([
@@ -32,9 +33,9 @@ class LocalidadesController extends Controller
 
         // Redirigir con mensaje de éxito
         return redirect()->route('localidades.index')->with('success', '¡Ubicación guardada correctamente!');
-    }
+    } 
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id)     
     {
         try {
             $localidad = Localidad::findOrFail($id);
@@ -52,6 +53,17 @@ class LocalidadesController extends Controller
             return redirect()->route('localidades.index')->with('success', '¡Ubicación actualizada con éxito!');
         } catch (\Exception $e) {
             return redirect()->route('localidades.index')->with('error', 'Error al actualizar la ubicación.');
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $localidad = Localidad::findOrFail($id);
+            $localidad->delete();
+            return redirect()->route('localidades.index')->with('success', '¡Ubicación eliminada correctamente!');
+        } catch (\Exception $e) {
+            return redirect()->route('localidades.index')->with('error', 'Error al eliminar la ubicación.');
         }
     }
 }
