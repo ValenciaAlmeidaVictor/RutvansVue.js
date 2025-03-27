@@ -1,60 +1,155 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - RUTVANS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            font-family: Arial, sans-serif;
+        }
+        .register-container {
+            width: 350px;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(255, 102, 0, 0.1);
+            box-shadow: 0 0 15px rgba(255, 102, 0, 0.5);
+            text-align: center;
+            color: white;
+        }
+        .logo {
+            width: 100px;
+            margin-bottom: 15px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 102, 0, 0.8);
+            box-shadow: 0 0 10px rgba(255, 102, 0, 0.8);
+        }
+        .register-container h2 {
+    margin-bottom: 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    color: white; /* Cambiado a blanco */
+    text-shadow: 0 0 5px #ff6600, 0 0 10px #ff6600, 0 0 15px #ff3300; /* Mantiene el borde naranja luminoso */
+    padding: 10px;
+    display: inline-block;
+    animation: glow 1.5s infinite alternate;
+}
 
-        <x-validation-errors class="mb-4" />
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #ff6600, 0 0 10px #ff6600, 0 0 15px #ff3300;
+            }
+            to {
+                text-shadow: 0 0 10px #ff9900, 0 0 20px #ff6600, 0 0 30px #ff3300;
+            }
+        }
+        .input-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        .input-group label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    color: white; /* Color del texto en blanco */
+    text-shadow: 0 0 5px #ff6600, 0 0 10px #ff6600, 0 0 15px #ff3300; /* Efecto luminoso */
+    padding: 5px;
+    animation: glow 1.5s infinite alternate;
+}
 
+        .input-group input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            border: 2px solid #ff6600;
+            border-radius: 5px;
+            font-size: 16px;
+            background: black;
+            color: white;
+            outline: none;
+            box-sizing: border-box;
+        }
+        .input-group input:focus {
+            border-color: #ff8800;
+            box-shadow: 0 0 5px rgba(255, 102, 0, 0.8);
+        }
+        .input-group .icon-container {
+            position: absolute;
+            left: 12px;
+            top: 71%;
+            transform: translateY(-50%);
+            color: rgb(248, 244, 242);
+            font-size: 16px;
+        }
+        .register-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff6600;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .register-btn:hover {
+            background-color: #cc5500;
+        }
+        .login-link {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .login-link a {
+            color: #ff6600;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .login-link a:hover {
+            color: #ff3300;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <img src="{{ asset('asset/LogoRutvans.png') }}" alt="Logo RUTVANS" class="logo">
+        <h2>REGÍSTRESE A RUTVANS</h2>
+        <p></p>
         <form method="POST" action="{{ route('register') }}">
             @csrf
-
-            <div>
-                <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+            <div class="input-group">
+                <label for="name">Nombre</label>
+                <span class="icon-container"><i class="fa-solid fa-user"></i></span>
+                <input type="text" id="name" name="name" required>
             </div>
-
-            <div class="mt-4">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+            <div class="input-group">
+                <label for="email">Correo Electrónico</label>
+                <span class="icon-container"><i class="fa-solid fa-envelope"></i></span>
+                <input type="email" id="email" name="email" required>
             </div>
-
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+            <div class="input-group">
+                <label for="password">Contraseña</label>
+                <span class="icon-container"><i class="fa-solid fa-lock"></i></span>
+                <input type="password" id="password" name="password" required>
             </div>
-
-            <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
+            <div class="input-group">
+                <label for="password_confirmation">Confirmar Contraseña</label>
+                <span class="icon-container"><i class="fa-solid fa-lock"></i></span>
+                <input type="password" id="password_confirmation" name="password_confirmation" required>
             </div>
-
-            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="mt-4">
-                    <x-label for="terms">
-                        <div class="flex items-center">
-                            <x-checkbox name="terms" id="terms" required />
-
-                            <div class="ms-2">
-                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Terms of Service').'</a>',
-                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Privacy Policy').'</a>',
-                                ]) !!}
-                            </div>
-                        </div>
-                    </x-label>
-                </div>
-            @endif
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ms-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
+            <button type="submit" class="register-btn">Registrarse</button>
         </form>
-    </x-authentication-card>
-</x-guest-layout>
+        <p class="login-link">¿Ya tienes una cuenta? <a href="{{ route('login') }}">Inicia sesión</a></p>
+    </div>
+</body>
+</html>
