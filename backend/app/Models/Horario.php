@@ -15,6 +15,12 @@ class Horario extends Model
     // Definir los nombres de las columnas correctas
     protected $fillable = ['departure_time', 'arrival_time', 'day'];
 
+    // Relación con los envíos (uno a muchos)
+    public function shipments()
+    {
+        return $this->hasMany(Envio::class, 'schedule_id');  // Un horario puede tener muchos envíos
+    }
+
     // Si la base de datos usa nombres de columna diferentes a las propiedades del modelo
     public function getDepartureTimeAttribute($value)
     {
@@ -25,8 +31,4 @@ class Horario extends Model
     {
         $this->attributes['departure_time'] = $value;
     }
-
-    // Puedes definir otros accesores y mutadores si es necesario
 }
-
-

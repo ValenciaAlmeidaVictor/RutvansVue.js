@@ -1,7 +1,7 @@
 <div>
     <!-- Botón para crear una nueva localidad -->
     <button type="button" class="btn mb-4" style="background-color: #ff7f00; border-color: #ff7f00; color: white;" wire:click="openCreateModal">
-        <i class="fas fa-plus-circle"></i> Crear Nueva Localidad
+    <i class="fas fa-map-marker-alt"></i> Crear Nueva Localidad
     </button>
 
     <!-- Modal de Bootstrap para Crear, Editar o Mostrar Localidad -->

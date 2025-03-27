@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\Horario;  // Usa el modelo Horario
+use App\Models\Horario;  
 use Illuminate\Support\Facades\Log;
 
 class HorarioComponent extends Component
@@ -82,8 +82,8 @@ class HorarioComponent extends Component
     public function save()
     {
         $this->validate([
-            'departure_time' => 'required|date_format:H:i',
-            'arrival_time' => 'required|date_format:H:i',
+            'departure_time' => 'required|date_format:h:i A',
+            'arrival_time' => 'required|date_format:h:i A',
             'day' => 'required|string|max:255',
         ]);
 

@@ -21,7 +21,7 @@ class VentaComponent extends Component
 
         public function showConfirmSave($isEditMode)
     {
-        $this->dispatch('swalConfirmSave', ['isEditMode' => $isEditMode]);  // Disparamos el evento swalConfirm con el estado
+        $this->dispatchBrowserEvent('swalConfirmSave', ['isEditMode' => $isEditMode]); // Disparamos el evento swalConfirm con el estado
     }
 
 

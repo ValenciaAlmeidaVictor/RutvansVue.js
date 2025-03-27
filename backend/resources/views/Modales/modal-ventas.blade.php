@@ -1,7 +1,7 @@
 <div>
     <!-- Botón para crear una nueva venta -->
     <button type="button" class="btn mb-4" style="background-color: #ff7f00; border-color: #ff7f00; color: white;" wire:click="openCreateModal">
-        <i class="fas fa-plus-circle"></i> Crear Nueva Venta
+    <i class="fas fa-cart-plus"></i> Crear Nueva Venta
     </button>
 
     <!-- Modal de Bootstrap para Crear, Editar o Mostrar Venta -->
@@ -67,97 +67,98 @@
                             </div>
                         </div>
                     @else
-                        <!-- Formulario para Crear o Editar -->
-                        <form wire:submit.prevent="save">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Folio</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-file-alt"></i></span>
-                                        <input type="text" wire:model="folio" class="form-control">
-                                    </div>
-                                    @error('folio') <span class="text-danger">{{ $message }}</span> @enderror
-                                </div>
+<!-- Formulario para Crear o Editar -->
+<form wire:submit.prevent="save">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Folio</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-file-alt"></i></span>
+                <input type="text" wire:model="folio" class="form-control" placeholder="Ingresa el folio">
+            </div>
+            @error('folio') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
 
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Costo</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                                        <input type="number" step="0.01" min="0" wire:model="cost" class="form-control">
-                                    </div>
-                                    @error('cost') <span class="text-danger">{{ $message }}</span> @enderror
-                                </div>
-                            </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Costo</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                <input type="number" step="0.01" min="0" wire:model="cost" class="form-control" placeholder="Ingresa el costo">
+            </div>
+            @error('cost') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+    </div>
 
-                            <div class="row">
-                                <div class="col-md-12 mb-3">
-                                    <label class="form-label">Fecha</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                        <input type="date" wire:model="date" class="form-control">
-                                    </div>
-                                    @error('date') <span class="text-danger">{{ $message }}</span> @enderror
-                                </div>
-                            </div>
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <label class="form-label">Fecha</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                <input type="date" wire:model="date" class="form-control" placeholder="Selecciona la fecha">
+            </div>
+            @error('date') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+    </div>
 
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Origen</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                        <input type="number" wire:model="origin_id" class="form-control">
-                                    </div>
-                                    @error('origin_id') <span class="text-danger">{{ $message }}</span> @enderror
-                                </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Origen</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                <input type="number" wire:model="origin_id" class="form-control" placeholder="Ingresa el origen">
+            </div>
+            @error('origin_id') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
 
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Método de pago</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-credit-card"></i></span>
-                                        <input type="number" wire:model="method_id" class="form-control">
-                                    </div>
-                                    @error('method_id') <span class="text-danger">{{ $message }}</span> @enderror
-                                </div>
-                            </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Método de pago</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-credit-card"></i></span>
+                <input type="number" wire:model="method_id" class="form-control" placeholder="Ingresa el método de pago">
+            </div>
+            @error('method_id') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+    </div>
 
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Estado</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-cogs"></i></span>
-                                        <input type="number" wire:model="state_id" class="form-control">
-                                    </div>
-                                    @error('state_id') <span class="text-danger">{{ $message }}</span> @enderror
-                                </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Estado</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-cogs"></i></span>
+                <input type="number" wire:model="state_id" class="form-control" placeholder="Ingresa el estado">
+            </div>
+            @error('state_id') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
 
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Usuario</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                        <select wire:model="user_id" class="form-control">
-                                            <option value="">Seleccione un usuario</option>
-                                            @foreach(App\Models\User::all() as $user)
-                                                <option value="{{ $user->id }}" {{ $user->id == $user_id ? 'selected' : '' }}>
-                                                    {{ $user->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @error('user_id') <span class="text-danger">{{ $message }}</span> @enderror
-                                </div>
-                            </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Usuario</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                <select wire:model="user_id" class="form-control">
+                    <option value="">Seleccione un usuario</option>
+                    @foreach(App\Models\User::all() as $user)
+                        <option value="{{ $user->id }}" {{ $user->id == $user_id ? 'selected' : '' }}>
+                            {{ $user->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            @error('user_id') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+    </div>
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-dark" wire:click="closeModal">Cerrar</button>
-                                <button type="button" class="btn" style="background-color: #ff7f00; border-color: #ff7f00; color: white;" wire:click="save">
-                                    @if($isEditMode)
-                                    Actualizar
-                                    @else
-                                    Crear
-                                    @endif
-                                </button>
-                            </div>
-                        </form>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-dark" wire:click="closeModal">Cerrar</button>
+        <button type="button" class="btn" style="background-color: #ff7f00; border-color: #ff7f00; color: white;" wire:click="save">
+            @if($isEditMode)
+            Actualizar
+            @else
+            Crear
+            @endif
+        </button>
+    </div>
+</form>
+
                     @endif
                 </div>
             </div>

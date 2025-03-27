@@ -42,8 +42,7 @@ class LocalidadesTable extends DataTableComponent
             ->setLayout('layouts.app')
             ->setBulkActionsEnabled()
             ->setHideBulkActionsWhenEmptyEnabled();
-    }
-
+    }      
     public function getTableRowUrl($row): ?string
     {
         return '#';
@@ -75,7 +74,7 @@ class LocalidadesTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make("ID", "id"), 
+            Column::make("ID", "id")->hideIf(true), 
             Column::make("Name", "name") 
                 ->searchable()
                 ->sortable(),
@@ -92,7 +91,7 @@ class LocalidadesTable extends DataTableComponent
                     ->html(),              
                         
                     LinkColumn::make('Show')
-                        ->title(fn($row) => '<i class="fas fa-eye"></i>')
+                        ->title(fn($row) => '<i class="fas fa-info-circle"></i>')
                         ->location(fn($row) => '#')
                         ->attributes(fn($row) => [
                             'class' => 'btn btn-success  w-8 h-8 flex items-center justify-center rounded-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-75',

@@ -1,24 +1,23 @@
 @extends('adminlte::page')
 
-@section('title', 'Ventas')
+@section('title', 'Unidades')
 
 @section('content_header')
-    <h1>Gestión de Ventas</h1>
+    <h1>Gestión de Unidades</h1>
 @endsection
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Administrar Ventas</h3>
+            <h3 class="card-title">Administrar Unidades</h3>
         </div>
 
         <div class="card-body">
-            @livewire('venta-component')  <!-- Carga el componente de gestión de ventas -->
-            @livewire('ventas-table')    <!-- Carga la tabla con las ventas -->
+            @livewire('unidad-component')  <!-- Carga el componente de gestión de unidades -->
+            @livewire('unidades-table')    <!-- Carga la tabla con las unidades -->
         </div>
     </div>
 
-    <!-- Carga los estilos y scripts de rappasoft/laravel-livewire-tables -->
     @rappasoftTableStyles
     @rappasoftTableThirdPartyStyles
     @rappasoftTableScripts
@@ -26,33 +25,34 @@
 @endsection
 
 @section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            let modalElement = document.getElementById('ventaModal');
-            let ventaModal = new bootstrap.Modal(modalElement);
+            let modalElement = document.getElementById('UnidadModal');
+            let unidadModal = new bootstrap.Modal(modalElement);
 
             Livewire.on('show-bootstrap-modal', function () {
-                ventaModal.show();  // Abre el modal
+                unidadModal.show();  // Abre el modal
             });
 
             Livewire.on('hide-bootstrap-modal', function () {
-                ventaModal.hide();  // Cierra el modal
+                unidadModal.hide();  // Cierra el modal
             });
 
-            // Evento para mostrar detalles de la venta
-            Livewire.on('openShowVentaModal', function (venta) {
-                // Llenar los campos con los datos de la venta
-                document.getElementById('detalleFolio').innerText = venta.folio;
-                document.getElementById('detalleFecha').innerText = venta.fecha;
-                document.getElementById('detalleCosto').innerText = venta.costo;
+            // Evento para mostrar detalles de la unidad
+            Livewire.on('openShowUnidadModal', function (unidad) {
+                document.getElementById('detallePlaca').innerText = unidad.placa;
+                document.getElementById('detalleMarca').innerText = unidad.marca;
+                document.getElementById('detalleAño').innerText = unidad.año;
+                document.getElementById('detalleModelo').innerText = unidad.modelo;
+                document.getElementById('detalleCapacidad').innerText = unidad.capacidad;
 
-                let ventaModal = new bootstrap.Modal(document.getElementById('ventaModal'));
-                ventaModal.show();  // Muestra el modal con los detalles
+                let unidadModal = new bootstrap.Modal(document.getElementById('UnidadModal'));
+                unidadModal.show();  // Muestra el modal con los detalles
             });
         });
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Este script escucha el mensaje de éxito enviado desde Livewire -->
     <script>
@@ -92,12 +92,12 @@
                     text: "No podrás revertir esto.",
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonColor: "#d33", 
-                    cancelButtonColor: "#000", 
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#000",
                     confirmButtonText: "Sí, eliminar"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        Livewire.dispatch('deleteVenta', id);
+                        Livewire.dispatch('deleteUnidad', id);
                     }
                 });
             });
@@ -105,9 +105,9 @@
             Livewire.on('swalSuccess', () => {
                 Swal.fire({
                     title: "¡Eliminado!",
-                    text: "La venta ha sido eliminada.",
+                    text: "La unidad ha sido eliminada.",
                     icon: "success",
-                    confirmButtonColor: "#d33", 
+                    confirmButtonColor: "#d33"
                 });
             });
         });
@@ -119,28 +119,28 @@
             Livewire.on('swalConfirmSave', (data) => {
                 const isEditMode = data.isEditMode;  // Obtenemos si estamos en modo editar
 
-                let mensaje = isEditMode ? "¿Deseas guardar los cambios?" : "¿Deseas crear esta venta?";
+                let mensaje = isEditMode ? "¿Deseas guardar los cambios?" : "¿Deseas crear esta unidad?";
 
                 Swal.fire({
                     title: mensaje,
                     icon: "question",
                     showCancelButton: true,
-                    confirmButtonColor: "#d33", 
-                    cancelButtonColor: "#000", 
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#000",
                     confirmButtonText: "Sí, guardar"
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Disparar el evento de guardado
-                        Livewire.dispatch('saveVenta'); // Usamos dispatch para llamar al método 'save'
+                        Livewire.dispatch('saveUnidad');
                     }
                 });
             });
 
-            // Evento de éxito después de guardar la venta
+            // Evento de éxito después de guardar la unidad
             Livewire.on('swalSuccessSave', () => {
                 Swal.fire({
                     title: "¡Guardado!",
-                    text: "La venta se ha guardado correctamente.",
+                    text: "La unidad se ha guardado correctamente.",
                     icon: "success",
                     confirmButtonColor: "#d33"
                 });

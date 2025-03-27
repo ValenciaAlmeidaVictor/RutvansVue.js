@@ -1,20 +1,20 @@
 @extends('adminlte::page')
 
-@section('title', 'Ventas')
+@section('title', 'Conductores')
 
 @section('content_header')
-    <h1>Gestión de Ventas</h1>
+    <h1>Gestión de Conductores</h1>
 @endsection
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Administrar Ventas</h3>
+            <h3 class="card-title">Administrar Conductores</h3>
         </div>
 
         <div class="card-body">
-            @livewire('venta-component')  <!-- Carga el componente de gestión de ventas -->
-            @livewire('ventas-table')    <!-- Carga la tabla con las ventas -->
+            @livewire('conductor-component')  <!-- Carga el componente de gestión de conductores -->
+            @livewire('conductores-table')    <!-- Carga la tabla con los conductores -->
         </div>
     </div>
 
@@ -26,33 +26,33 @@
 @endsection
 
 @section('js')
+    <!-- Cargar SweetAlert2 (asegúrate de incluir este script antes que cualquier otro script que lo utilice) -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            let modalElement = document.getElementById('ventaModal');
-            let ventaModal = new bootstrap.Modal(modalElement);
+            let modalElement = document.getElementById('ConductorModal');
+            let conductorModal = new bootstrap.Modal(modalElement);
 
             Livewire.on('show-bootstrap-modal', function () {
-                ventaModal.show();  // Abre el modal
+                conductorModal.show();  // Abre el modal
             });
 
             Livewire.on('hide-bootstrap-modal', function () {
-                ventaModal.hide();  // Cierra el modal
+                conductorModal.hide();  // Cierra el modal
             });
 
-            // Evento para mostrar detalles de la venta
-            Livewire.on('openShowVentaModal', function (venta) {
-                // Llenar los campos con los datos de la venta
-                document.getElementById('detalleFolio').innerText = venta.folio;
-                document.getElementById('detalleFecha').innerText = venta.fecha;
-                document.getElementById('detalleCosto').innerText = venta.costo;
+            // Evento para mostrar detalles del conductor
+            Livewire.on('openShowConductorModal', function (conductor) {
+                document.getElementById('detalleHorario').innerText = conductor.horario;
+                document.getElementById('detalleNombre').innerText = conductor.nombre;
+                document.getElementById('detalleRutaUnidad').innerText = conductor.rutaunidad;
 
-                let ventaModal = new bootstrap.Modal(document.getElementById('ventaModal'));
-                ventaModal.show();  // Muestra el modal con los detalles
+                let conductorModal = new bootstrap.Modal(document.getElementById('ConductorModal'));
+                conductorModal.show();  // Muestra el modal con los detalles
             });
         });
     </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Este script escucha el mensaje de éxito enviado desde Livewire -->
     <script>
@@ -97,7 +97,7 @@
                     confirmButtonText: "Sí, eliminar"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        Livewire.dispatch('deleteVenta', id);
+                        Livewire.dispatch('deleteConductor', id);
                     }
                 });
             });
@@ -105,7 +105,7 @@
             Livewire.on('swalSuccess', () => {
                 Swal.fire({
                     title: "¡Eliminado!",
-                    text: "La venta ha sido eliminada.",
+                    text: "El Conductor ha sido eliminado.",
                     icon: "success",
                     confirmButtonColor: "#d33", 
                 });
@@ -119,7 +119,7 @@
             Livewire.on('swalConfirmSave', (data) => {
                 const isEditMode = data.isEditMode;  // Obtenemos si estamos en modo editar
 
-                let mensaje = isEditMode ? "¿Deseas guardar los cambios?" : "¿Deseas crear esta venta?";
+                let mensaje = isEditMode ? "¿Deseas guardar los cambios?" : "¿Deseas registrar este Conductor?";
 
                 Swal.fire({
                     title: mensaje,
@@ -131,18 +131,18 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Disparar el evento de guardado
-                        Livewire.dispatch('saveVenta'); // Usamos dispatch para llamar al método 'save'
+                        Livewire.dispatch('saveConductor'); // Usamos dispatch para llamar al método 'save'
                     }
                 });
             });
 
-            // Evento de éxito después de guardar la venta
+            // Evento de éxito después de guardar el conductor
             Livewire.on('swalSuccessSave', () => {
                 Swal.fire({
                     title: "¡Guardado!",
-                    text: "La venta se ha guardado correctamente.",
+                    text: "El Conductor se ha guardado correctamente.",
                     icon: "success",
-                    confirmButtonColor: "#d33"
+                    confirmButtonColor: "#d33", 
                 });
             });
         });

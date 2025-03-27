@@ -135,4 +135,8 @@ class LocalidadComponent extends Component
             session()->flash('error', 'Localidad no encontrada.');
         }
     }    
+    public function index()
+    {
+        return response()->json(Localidad::all());
+    }
 }
