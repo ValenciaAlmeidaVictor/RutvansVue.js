@@ -340,7 +340,18 @@ return [
                     'text' => 'Asignar Permisos',
                     'icon' => 'fas fa-user-shield', // Ícono más representativo
                     'url' => 'roles-permissions',
-                ],                
+                ],
+            ]
+        ],
+        [
+            'text' => 'Exportaciones',
+            'icon' => 'fas fa-file-export', // Ícono representativo para exportaciones
+            'submenu' => [
+                [
+                    'text' => 'Localidades',
+                    'icon' => 'fas fa-map-marker-alt', // Ícono representativo para localidades
+                    'url' => 'localidades-exp', // Ruta para la exportación de localidades
+                ],
             ]
         ],
         ['header' => 'Rutas'],
