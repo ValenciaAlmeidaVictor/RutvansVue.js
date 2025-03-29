@@ -340,8 +340,9 @@ return [
             ],
             [
                 'text' => 'Destinos Intermedios',
-                'url' => 'admin/destinos-intermedios',
+                'url' => '/destino-intermedio',
                 'icon' => 'fas fa-map-marked-alt',  // Ícono más preciso para mapas
+                'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'destino-intermedio') !== false ? 'bg-gradient-orange text-white' : '',
             ],
             [
                 'text' => 'Detalles de Boletos',
@@ -378,9 +379,9 @@ return [
         'submenu' => [
             [
                 'text' => 'Administrar Rutas',
-                'url' => '/rutas',
+                'url' => '/ruta',
                 'icon' => 'fas fa-route',  // Ícono para administración de rutas
-                'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'rutas') !== false ? 'bg-gradient-orange text-white' : '',
+                'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'ruta') !== false ? 'bg-gradient-orange text-white' : '',
             ],
             [
                 'text' => 'Rutas - Unidades',

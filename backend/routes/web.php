@@ -1,6 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ChatbotController;
+
+//chatbot
+Route::post('/chatbot', [ChatbotController::class, 'handle'])->name('chatbot.handle');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +31,9 @@ use App\Livewire\HorarioComponent;
 use App\Livewire\EnvioComponent;
 use App\Livewire\UnidadComponent;
 use App\Livewire\ConductorComponent;
+use App\Livewire\TipoTarifaComponent;
+use App\Livewire\DestinoIntermedioComponent;
+use App\Livewire\RutaComponent;
 
 
 Route::get('/ventas', function () {
@@ -55,5 +65,16 @@ Route::get('/conductores', function () {
     return view('Conductores.conductores');
 })->name('conductores.index');
 
+Route::get('/tipos-tarifas', function () {
+    return view('tipoTarifas.tipoTarifas');
+})->name('tipotarifas.index');
+
+Route::get('/destino-intermedio', function () {
+    return view('Destino_intermedio.destino_intermedio');
+})->name('destino-intermedio.index');
+
+Route::get('/ruta', function () {
+    return view('Ruta.ruta');
+})->name('ruta.index');
 // Ruta para la tabla con DataTables ServerSide
 // Route::get('/ventas/data', [VentaController::class, 'getVentas'])->name('ventas.data');

@@ -1,21 +1,19 @@
 @extends('adminlte::page')
 
-@section('title', 'RutVans | Unidades')
+@section('title', 'RutVans | Rutas')
 
 @section('content_header')
-    <h1>Gestión de Unidades</h1>
+    <h1>Gestión de Rutas</h1>
 @endsection
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Administrar Unidades</h3>
+            <h3 class="card-title">Administrar Rutas</h3>
         </div>
 
         <div class="card-body">
-            @livewire('unidad-component')  <!-- Carga el componente de gestión de unidades -->
-            @livewire('unidades-table')    <!-- Carga la tabla con las unidades -->
-        </div>
+            @livewire('ruta-component') @livewire('ruta-table')     </div>
     </div>
 
     @rappasoftTableStyles
@@ -29,32 +27,31 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            let modalElement = document.getElementById('UnidadModal');
-            let unidadModal = new bootstrap.Modal(modalElement);
+            let modalElement = document.getElementById('rutaModal');
+            let rutaModal = new bootstrap.Modal(modalElement);
 
             Livewire.on('show-bootstrap-modal', function () {
-                unidadModal.show();  // Abre el modal
+                rutaModal.show();  // Abre el modal
             });
 
             Livewire.on('hide-bootstrap-modal', function () {
-                unidadModal.hide();  // Cierra el modal
+                rutaModal.hide();  // Cierra el modal
             });
 
-            // Evento para mostrar detalles de la unidad
-            Livewire.on('openShowUnidadModal', function (unidad) {
-                document.getElementById('detallePlaca').innerText = unidad.placa;
-                document.getElementById('detalleMarca').innerText = unidad.marca;
-                document.getElementById('detalleAño').innerText = unidad.año;
-                document.getElementById('detalleModelo').innerText = unidad.modelo;
-                document.getElementById('detalleCapacidad').innerText = unidad.capacidad;
+            // Evento para mostrar detalles de la ruta
+            Livewire.on('openShowRutaModal', function (ruta) {
+                // Llenar los campos con los datos de la ruta
+                document.getElementById('detalleNombre').innerText = ruta.nombre;
+                document.getElementById('detalleFareId').innerText = ruta.fare_id;
+                document.getElementById('detalleOriginLocality').innerText = ruta.origin_locality_id;
+                document.getElementById('detalleDestinationLocality').innerText = ruta.destination_locality_id;
 
-                let unidadModal = new bootstrap.Modal(document.getElementById('UnidadModal'));
-                unidadModal.show();  // Muestra el modal con los detalles
+                let rutaModal = new bootstrap.Modal(document.getElementById('rutaModal'));
+                rutaModal.show();  // Muestra el modal con los detalles
             });
         });
     </script>
 
-    <!-- Este script escucha el mensaje de éxito enviado desde Livewire -->
     <script>
         Livewire.on('message', message => {
             Swal.fire({
@@ -66,7 +63,6 @@
         });
     </script>
 
-    <!-- Este script escucha los errores enviados desde Livewire -->
     <script>
         Livewire.on('error', errorMessage => {
             Swal.fire({
@@ -97,7 +93,7 @@
                     confirmButtonText: "Sí, eliminar"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        Livewire.dispatch('deleteUnidad', id);
+                        Livewire.dispatch('deleteRuta', id);
                     }
                 });
             });
@@ -105,9 +101,9 @@
             Livewire.on('swalSuccess', () => {
                 Swal.fire({
                     title: "¡Eliminado!",
-                    text: "La unidad ha sido eliminada.",
+                    text: "La ruta ha sido eliminada.",
                     icon: "success",
-                    confirmButtonColor: "#d33"
+                    confirmButtonColor: "#d33",
                 });
             });
         });
@@ -119,7 +115,7 @@
             Livewire.on('swalConfirmSave', (data) => {
                 const isEditMode = data.isEditMode;  // Obtenemos si estamos en modo editar
 
-                let mensaje = isEditMode ? "¿Deseas guardar los cambios?" : "¿Deseas crear esta unidad?";
+                let mensaje = isEditMode ? "¿Deseas guardar los cambios?" : "¿Deseas crear esta ruta?";
 
                 Swal.fire({
                     title: mensaje,
@@ -131,18 +127,18 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Disparar el evento de guardado
-                        Livewire.dispatch('saveUnidad');
+                        Livewire.dispatch('saveRuta'); // Usamos dispatch para llamar al método 'save'
                     }
                 });
             });
 
-            // Evento de éxito después de guardar la unidad
+            // Evento de éxito después de guardar la ruta
             Livewire.on('swalSuccessSave', () => {
                 Swal.fire({
                     title: "¡Guardado!",
-                    text: "La unidad se ha guardado correctamente.",
+                    text: "La ruta se ha guardado correctamente.",
                     icon: "success",
-                    confirmButtonColor: "#d33"
+                    confirmButtonColor: "#d33",
                 });
             });
         });

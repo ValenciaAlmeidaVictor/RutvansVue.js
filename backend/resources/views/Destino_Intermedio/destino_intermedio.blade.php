@@ -1,21 +1,19 @@
 @extends('adminlte::page')
 
-@section('title', 'RutVans | Unidades')
+@section('title', 'RutVans | Destinos Intermedios')
 
 @section('content_header')
-    <h1>Gestión de Unidades</h1>
+    <h1>Gestión de Destinos Intermedios</h1>
 @endsection
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Administrar Unidades</h3>
+            <h3 class="card-title">Administrar Destinos Intermedios</h3>
         </div>
 
         <div class="card-body">
-            @livewire('unidad-component')  <!-- Carga el componente de gestión de unidades -->
-            @livewire('unidades-table')    <!-- Carga la tabla con las unidades -->
-        </div>
+            @livewire('destino-intermedio-component')  @livewire('destino-intermedio-table')    </div>
     </div>
 
     @rappasoftTableStyles
@@ -29,32 +27,29 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            let modalElement = document.getElementById('UnidadModal');
-            let unidadModal = new bootstrap.Modal(modalElement);
+            let modalElement = document.getElementById('localidadModal'); // Usa el mismo ID del modal
+            let destinoIntermedioModal = new bootstrap.Modal(modalElement);
 
             Livewire.on('show-bootstrap-modal', function () {
-                unidadModal.show();  // Abre el modal
+                destinoIntermedioModal.show();  // Abre el modal
             });
 
             Livewire.on('hide-bootstrap-modal', function () {
-                unidadModal.hide();  // Cierra el modal
+                destinoIntermedioModal.hide();  // Cierra el modal
             });
 
-            // Evento para mostrar detalles de la unidad
-            Livewire.on('openShowUnidadModal', function (unidad) {
-                document.getElementById('detallePlaca').innerText = unidad.placa;
-                document.getElementById('detalleMarca').innerText = unidad.marca;
-                document.getElementById('detalleAño').innerText = unidad.año;
-                document.getElementById('detalleModelo').innerText = unidad.modelo;
-                document.getElementById('detalleCapacidad').innerText = unidad.capacidad;
+            // Evento para mostrar detalles del destino intermedio
+            Livewire.on('openShowDestinoIntermedioModal', function (destinoIntermedio) {
+                // Llenar los campos con los datos del destino intermedio
+                document.getElementById('detalleNombre').innerText = destinoIntermedio.nombre;
+                document.getElementById('detalleRouteId').innerText = destinoIntermedio.route_id;
 
-                let unidadModal = new bootstrap.Modal(document.getElementById('UnidadModal'));
-                unidadModal.show();  // Muestra el modal con los detalles
+                let destinoIntermedioModal = new bootstrap.Modal(document.getElementById('localidadModal')); // Usa el mismo ID del modal
+                destinoIntermedioModal.show();  // Muestra el modal con los detalles
             });
         });
     </script>
 
-    <!-- Este script escucha el mensaje de éxito enviado desde Livewire -->
     <script>
         Livewire.on('message', message => {
             Swal.fire({
@@ -66,7 +61,6 @@
         });
     </script>
 
-    <!-- Este script escucha los errores enviados desde Livewire -->
     <script>
         Livewire.on('error', errorMessage => {
             Swal.fire({
@@ -92,12 +86,12 @@
                     text: "No podrás revertir esto.",
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonColor: "#d33",
-                    cancelButtonColor: "#000",
+                    confirmButtonColor: "#d33", 
+                    cancelButtonColor: "#000", 
                     confirmButtonText: "Sí, eliminar"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        Livewire.dispatch('deleteUnidad', id);
+                        Livewire.dispatch('deleteDestinoIntermedio', id);
                     }
                 });
             });
@@ -105,9 +99,9 @@
             Livewire.on('swalSuccess', () => {
                 Swal.fire({
                     title: "¡Eliminado!",
-                    text: "La unidad ha sido eliminada.",
+                    text: "El destino intermedio ha sido eliminado.",
                     icon: "success",
-                    confirmButtonColor: "#d33"
+                    confirmButtonColor: "#d33", 
                 });
             });
         });
@@ -119,30 +113,30 @@
             Livewire.on('swalConfirmSave', (data) => {
                 const isEditMode = data.isEditMode;  // Obtenemos si estamos en modo editar
 
-                let mensaje = isEditMode ? "¿Deseas guardar los cambios?" : "¿Deseas crear esta unidad?";
+                let mensaje = isEditMode ? "¿Deseas guardar los cambios?" : "¿Deseas crear este destino intermedio?";
 
                 Swal.fire({
                     title: mensaje,
                     icon: "question",
                     showCancelButton: true,
-                    confirmButtonColor: "#d33",
-                    cancelButtonColor: "#000",
+                    confirmButtonColor: "#d33", 
+                    cancelButtonColor: "#000", 
                     confirmButtonText: "Sí, guardar"
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Disparar el evento de guardado
-                        Livewire.dispatch('saveUnidad');
+                        Livewire.dispatch('saveDestinoIntermedio'); // Usamos dispatch para llamar al método 'save'
                     }
                 });
             });
 
-            // Evento de éxito después de guardar la unidad
+            // Evento de éxito después de guardar el destino intermedio
             Livewire.on('swalSuccessSave', () => {
                 Swal.fire({
                     title: "¡Guardado!",
-                    text: "La unidad se ha guardado correctamente.",
+                    text: "El destino intermedio se ha guardado correctamente.",
                     icon: "success",
-                    confirmButtonColor: "#d33"
+                    confirmButtonColor: "#d33", 
                 });
             });
         });

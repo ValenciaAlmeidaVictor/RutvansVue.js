@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Horarios')
+@section('title', 'RutVans | Horarios')
 
 @section('content_header')
     <h1>Gestión de Horarios</h1>

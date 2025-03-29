@@ -1,23 +1,26 @@
+{{-- filepath: c:\xampp\htdocs\rutvans\backend\resources\views\TipoTarifas\tipotarifas.blade.php --}}
+
 @extends('adminlte::page')
 
-@section('title', 'RutVans | Unidades')
+@section('title', 'RutVans | Tipos_Tarifas')
 
 @section('content_header')
-    <h1>Gestión de Unidades</h1>
+    <h1>Gestión de Tipos de Tarifas</h1>
 @endsection
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Administrar Unidades</h3>
+            <h3 class="card-title">Administrar Tipos de Tarifas</h3>
         </div>
 
         <div class="card-body">
-            @livewire('unidad-component')  <!-- Carga el componente de gestión de unidades -->
-            @livewire('unidades-table')    <!-- Carga la tabla con las unidades -->
+            @livewire('tipo-tarifa-component')  <!-- Carga el componente de gestión de tipos de tarifas -->
+            @livewire('tipo-tarifas-table')    <!-- Carga la tabla con los tipos de tarifas -->
         </div>
     </div>
 
+    <!-- Carga los estilos y scripts de rappasoft/laravel-livewire-tables -->
     @rappasoftTableStyles
     @rappasoftTableThirdPartyStyles
     @rappasoftTableScripts
@@ -25,34 +28,33 @@
 @endsection
 
 @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            let modalElement = document.getElementById('UnidadModal');
-            let unidadModal = new bootstrap.Modal(modalElement);
+            let modalElement = document.getElementById('tipoTarifaModal');
+            let tipoTarifaModal = new bootstrap.Modal(modalElement);
 
             Livewire.on('show-bootstrap-modal', function () {
-                unidadModal.show();  // Abre el modal
+                tipoTarifaModal.show();  // Abre el modal
             });
 
             Livewire.on('hide-bootstrap-modal', function () {
-                unidadModal.hide();  // Cierra el modal
+                tipoTarifaModal.hide();  // Cierra el modal
             });
 
-            // Evento para mostrar detalles de la unidad
-            Livewire.on('openShowUnidadModal', function (unidad) {
-                document.getElementById('detallePlaca').innerText = unidad.placa;
-                document.getElementById('detalleMarca').innerText = unidad.marca;
-                document.getElementById('detalleAño').innerText = unidad.año;
-                document.getElementById('detalleModelo').innerText = unidad.modelo;
-                document.getElementById('detalleCapacidad').innerText = unidad.capacidad;
+            // Evento para mostrar detalles del tipo de tarifa
+            Livewire.on('openShowTipoTarifaModal', function (tipoTarifa) {
+                // Llenar los campos con los datos del tipo de tarifa
+                document.getElementById('detalleNombre').innerText = tipoTarifa.name;
+                document.getElementById('detallePercentage').innerText = tipoTarifa.percentage;
+                document.getElementById('detalleDescripcion').innerText = tipoTarifa.description;
 
-                let unidadModal = new bootstrap.Modal(document.getElementById('UnidadModal'));
-                unidadModal.show();  // Muestra el modal con los detalles
+                let tipoTarifaModal = new bootstrap.Modal(document.getElementById('tipoTarifaModal'));
+                tipoTarifaModal.show();  // Muestra el modal con los detalles
             });
         });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Este script escucha el mensaje de éxito enviado desde Livewire -->
     <script>
@@ -92,12 +94,12 @@
                     text: "No podrás revertir esto.",
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonColor: "#d33",
-                    cancelButtonColor: "#000",
+                    confirmButtonColor: "#d33", 
+                    cancelButtonColor: "#000", 
                     confirmButtonText: "Sí, eliminar"
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        Livewire.dispatch('deleteUnidad', id);
+                        Livewire.dispatch('deleteTipoTarifa', id);
                     }
                 });
             });
@@ -105,9 +107,9 @@
             Livewire.on('swalSuccess', () => {
                 Swal.fire({
                     title: "¡Eliminado!",
-                    text: "La unidad ha sido eliminada.",
+                    text: "El tipo de tarifa ha sido eliminado.",
                     icon: "success",
-                    confirmButtonColor: "#d33"
+                    confirmButtonColor: "#d33", 
                 });
             });
         });
@@ -119,28 +121,28 @@
             Livewire.on('swalConfirmSave', (data) => {
                 const isEditMode = data.isEditMode;  // Obtenemos si estamos en modo editar
 
-                let mensaje = isEditMode ? "¿Deseas guardar los cambios?" : "¿Deseas crear esta unidad?";
+                let mensaje = isEditMode ? "¿Deseas guardar los cambios?" : "¿Deseas crear este tipo de tarifa?";
 
                 Swal.fire({
                     title: mensaje,
                     icon: "question",
                     showCancelButton: true,
-                    confirmButtonColor: "#d33",
-                    cancelButtonColor: "#000",
+                    confirmButtonColor: "#d33", 
+                    cancelButtonColor: "#000", 
                     confirmButtonText: "Sí, guardar"
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Disparar el evento de guardado
-                        Livewire.dispatch('saveUnidad');
+                        Livewire.dispatch('saveTipoTarifa'); // Usamos dispatch para llamar al método 'save'
                     }
                 });
             });
 
-            // Evento de éxito después de guardar la unidad
+            // Evento de éxito después de guardar el tipo de tarifa
             Livewire.on('swalSuccessSave', () => {
                 Swal.fire({
                     title: "¡Guardado!",
-                    text: "La unidad se ha guardado correctamente.",
+                    text: "El tipo de tarifa se ha guardado correctamente.",
                     icon: "success",
                     confirmButtonColor: "#d33"
                 });
