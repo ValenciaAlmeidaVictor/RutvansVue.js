@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Envio;
+use Illuminate\Support\Facades\Log;
 
 class EnvioComponent extends Component
 {

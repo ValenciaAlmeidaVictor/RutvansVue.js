@@ -13,7 +13,9 @@
         </div>
 
         <div class="card-body">
-            @livewire('destino-intermedio-component')  @livewire('destino-intermedio-table')    </div>
+            @livewire('destino-intermedio-component')
+            @livewire('destino-intermedio-table')
+        </div>
     </div>
 
     @rappasoftTableStyles

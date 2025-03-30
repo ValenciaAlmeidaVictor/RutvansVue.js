@@ -48,16 +48,19 @@
                                     </div>
                                     @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
+
                                 <div class="col-md-12 mb-3">
                                     <label class="form-label">Ruta</label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-map-signs"></i></span>
-                                        <select wire:model="route_id" class="form-control" wire:key="select-rutas">
-    <option value="">Selecciona una ruta</option>
-    @foreach($rutas as $ruta)
-        <option value="{{ $ruta->id }}" wire:key="ruta-{{ $ruta->id }}">{{ $ruta->nombre }}</option>
-    @endforeach
-</select>
+                                        <select wire:model="route_id" class="form-control">
+                                            <option value="">Selecciona una ruta</option>
+                                            @foreach($rutas as $ruta)
+                                                <option value="{{ $ruta->id }}">
+                                                    Origen: {{ $ruta->origin_locality_id }} - Destino: {{ $ruta->destination_locality_id }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     @error('route_id') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
