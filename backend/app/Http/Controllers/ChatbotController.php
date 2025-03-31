@@ -21,7 +21,7 @@ class ChatbotController extends Controller
         "como respaldar datos" => "Ve a 'Sistema > Respaldo'. Elige 'Generar respaldo' y descarga el archivo .bak en una ubicación segura.",
 
         // Redirección a WhatsApp
-        "necesito mas ayuda" => "¿Requieres asesoría personalizada? <a href='https://wa.me/5219993010426' class='text-blue-500 font-bold underline' target='_blank'><strong>Contáctanos por WhatsApp</strong></a> Atención al cliente: de lunes a viernes de 8:00 am a 6:00 pm. Sabado y domingo de 9:00 a 3:00 pm",
+        "necesito mas ayuda" => "¿Requieres asesoría personalizada? <a href='https://wa.me/5219993010426' class='text-orange-500 font-bold underline' target='_blank'><strong>Contáctanos por WhatsApp</strong></a> Atención al cliente: de lunes a viernes de 8:00 am a 6:00 pm. Sabado y domingo de 9:00 a 3:00 pm",
 
         // Respuesta por defecto
         "default" => "No entendí tu pregunta. ¿Necesitas ayuda con algo en particular? Puedes preguntar sobre: rutas, reportes, impresora, permisos, etc."
