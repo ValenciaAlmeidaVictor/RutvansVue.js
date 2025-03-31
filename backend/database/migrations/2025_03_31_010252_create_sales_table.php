@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ventas', function (Blueprint $table) {
+        Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('fecha');
+            $table->date('date');
             $table->string('folio');
-            $table->double('costo');
-            $table->unsignedBigInteger('idUsuario')->index('ventas_idusuario_foreign');
+            $table->decimal('cost', 10);
+            $table->unsignedBigInteger('user_id')->index('fk_sales_users');
+            $table->unsignedBigInteger('origin_id');
+            $table->unsignedBigInteger('state_id');
+            $table->unsignedBigInteger('method_id');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ventas');
+        Schema::dropIfExists('sales');
     }
 };

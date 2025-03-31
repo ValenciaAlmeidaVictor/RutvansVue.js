@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detalle_boleto', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('numeroAsiento');
-            $table->double('precioAsiento');
-            $table->unsignedBigInteger('idBoleto')->index('detalle_boleto_idboleto_foreign');
+        Schema::table('sales', function (Blueprint $table) {
+            $table->foreign(['user_id'], 'fk_sales_users')->references(['id'])->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detalle_boleto');
+        Schema::table('sales', function (Blueprint $table) {
+            $table->dropForeign('fk_sales_users');
+        });
     }
 };

@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('ventas', function (Blueprint $table) {
-            $table->foreign(['idUsuario'])->references(['idUsuario'])->on('usuarios')->onUpdate('restrict')->onDelete('restrict');
+        Schema::create('schedules', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->time('departure_time');
+            $table->time('arrival_time');
+            $table->string('day');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('ventas', function (Blueprint $table) {
-            $table->dropForeign('ventas_idusuario_foreign');
-        });
+        Schema::dropIfExists('schedules');
     }
 };

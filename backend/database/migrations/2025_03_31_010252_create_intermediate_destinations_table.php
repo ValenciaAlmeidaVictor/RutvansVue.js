@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('destinos_intermedios', function (Blueprint $table) {
-            $table->foreign(['idRuta'])->references(['idRuta'])->on('rutas')->onUpdate('restrict')->onDelete('restrict');
+        Schema::create('intermediate_destinations', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->unsignedBigInteger('route_id')->index('fk_intermediate_destinations_routes');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('destinos_intermedios', function (Blueprint $table) {
-            $table->dropForeign('destinos_intermedios_idruta_foreign');
-        });
+        Schema::dropIfExists('intermediate_destinations');
     }
 };
