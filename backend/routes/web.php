@@ -36,3 +36,4 @@ Route::get('exports/excel/localidades', [EXCELController::class, 'localidades'])
 // Ruta para mostrar la tabla de localidades
 Route::get('/localidades-exp', [LocExpController::class, 'index'])->name('localidades-exp.index');
 Route::post('/localidades-exp/data', [LocExpController::class, 'getLocalidades'])->name('localidades-exp.data');
+Route::get('/exports/excel/localidades', [ExcelController::class, 'expLocalidades'])->name('exports.excel.localidades');

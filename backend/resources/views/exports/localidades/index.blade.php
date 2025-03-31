@@ -18,8 +18,10 @@
                 <a href="#" id="export-pdf" class="btn btn-danger">
                     <i class="fas fa-file-pdf"></i> Exportar PDF
                 </a>
+                <a href="#" id="export-excel" class="btn btn-success">
+                    <i class="fas fa-file-excel"></i> Exportar Excel
+                </a>
             </div>
-
 
         </div>
         <div class="card-body">
@@ -111,7 +113,23 @@
 
                 window.location.href = url; // Redirige al controlador con los parámetros
             });
+            $('#export-excel').on('click', function() {
+                const search = table.search(); // Obtiene el término de búsqueda
+                const selectedDate = $('#filter-date').val(); // Obtiene la fecha seleccionada
 
+                // Construye la URL con parámetros
+                let url = "{{ route('exports.excel.localidades') }}";
+
+                if (search) {
+                    url += "?search=" + encodeURIComponent(search);
+                }
+                if (selectedDate) {
+                    url += search ? "&" : "?";
+                    url += "start_date=" + encodeURIComponent(selectedDate);
+                }
+
+                window.location.href = url; // Redirige al controlador con los parámetros
+            });
 
             // SweetAlert: Toasts para mensajes de éxito y error
             @if (session('success'))
@@ -137,5 +155,4 @@
             @endif
         });
     </script>
-
 @stop
