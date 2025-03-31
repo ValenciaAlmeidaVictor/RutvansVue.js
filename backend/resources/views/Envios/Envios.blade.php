@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Envios')
+@section('title', 'RutVans | Envios')
 
 @section('content_header')
     <h1>Gestión de Envios</h1>
@@ -111,8 +111,8 @@
                 text: "No podrás revertir esto.",
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonColor: "#d33", 
-                cancelButtonColor: "#000", 
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
                 confirmButtonText: "Sí, eliminar"
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -136,6 +136,9 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         Livewire.on('swalConfirmSave', (data) => {
+
+            Livewire.dispatch('saveEnvio', data);
+
             console.log('💾 Evento swalConfirmSave recibido con data:', data);
 
             // 🔹 Extraer correctamente el objeto si viene dentro de un array
@@ -150,18 +153,18 @@
 
             console.log('📌 Datos extraídos:', data);
 
-            Swal.fire({
-                title: data.isEditMode ? "¿Deseas guardar los cambios?" : "¿Deseas registrar este Envio?",
-                icon: "question",
-                showCancelButton: true,
-                confirmButtonColor: "#d33", 
-                cancelButtonColor: "#000", 
-                confirmButtonText: "Sí, guardar"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Livewire.dispatch('saveEnvio', data);
-                }
-            });
+            // Swal.fire({
+            //     title: data.isEditMode ? "¿Deseas guardar los cambios?" : "¿Deseas registrar este Envio?",
+            //     icon: "question",
+            //     showCancelButton: true,
+            //     confirmButtonColor: "#3085d6",
+            //     cancelButtonColor: "#d33",
+            //     confirmButtonText: "Sí, guardar"
+            // }).then((result) => {
+            //     if (result.isConfirmed) {
+            //         Livewire.dispatch('saveEnvio', data);
+            //     }
+            // });
         });
 
         Livewire.on('swalSuccessSave', () => {
