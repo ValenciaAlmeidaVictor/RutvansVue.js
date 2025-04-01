@@ -5,7 +5,7 @@
 @section('title', 'RutVans | Tipos_Tarifas')
 
 @section('content_header')
-    <h1>Gestión de Tipos de Tarifas</h1>
+        <h1>Gestión de Tipos de Tarifas</h1>
 @endsection
 
 @section('content')

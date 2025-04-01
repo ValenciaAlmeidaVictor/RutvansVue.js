@@ -12,7 +12,6 @@ use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 class TipoTarifasTable extends DataTableComponent
 {
     protected $model = TipoTarifa::class;
-
     protected $listeners = ['Refresh' => 'refreshTable'];
 
     private $isRefreshing = false;

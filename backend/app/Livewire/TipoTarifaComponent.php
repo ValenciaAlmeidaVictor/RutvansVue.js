@@ -76,7 +76,7 @@ class TipoTarifaComponent extends Component
 
     public function render()
     {
-        return view('Modales.modal-tipo-tarifa'); // Asegúrate de tener esta vista
+        return view('Modales.modal-tipo-tarifa'); 
     }
 
     public function save()
@@ -110,7 +110,7 @@ class TipoTarifaComponent extends Component
         session()->flash('message', $this->isEditMode
             ? 'Tipo de tarifa actualizado correctamente.'
             : 'Tipo de tarifa creado correctamente.');
-        $this->dispatch('Refresh')->to('tipo-tarifas-table'); // Asegúrate de tener esta tabla
+        $this->dispatch('Refresh')->to('tipo-tarifas-table'); 
     }
 
     public function openCreateModal()
