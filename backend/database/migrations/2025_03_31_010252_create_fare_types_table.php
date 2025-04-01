@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ruta_unidad', function (Blueprint $table) {
+        Schema::create('fare_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('fecha');
-            $table->unsignedBigInteger('idUnidad')->index('ruta_unidad_idunidad_foreign');
-            $table->unsignedBigInteger('idRuta')->index('ruta_unidad_idruta_foreign');
+            $table->string('name');
+            $table->decimal('percentage', 10);
+            $table->text('description');
+            $table->timestamps();
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ruta_unidad');
+        Schema::dropIfExists('fare_types');
     }
 };

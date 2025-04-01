@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('unidades', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('placa');
-            $table->integer('capacidad');
-            $table->string('marca');
-            $table->string('modelo');
-            $table->integer('year');
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign(['role_id'], 'fk_users_roles')->references(['id'])->on('roles')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('unidades');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign('fk_users_roles');
+        });
     }
 };

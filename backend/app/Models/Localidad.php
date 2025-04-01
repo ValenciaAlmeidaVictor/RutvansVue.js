@@ -9,7 +9,7 @@ class Localidad extends Model
     use HasFactory;
 
     // Definir los campos que pueden ser asignados de forma masiva
-    protected $table = 'Localidades';
+    protected $table = 'localities';
     protected $fillable = [
         'longitude',
         'latitude',

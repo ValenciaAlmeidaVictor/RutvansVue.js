@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('envios', function (Blueprint $table) {
+        Schema::create('units', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nombreEmisor');
-            $table->string('nombreReceptor');
-            $table->double('total');
-            $table->string('foto');
-            $table->text('descripcion');
-            $table->unsignedBigInteger('idRutaUnidad')->index('envios_idrutaunidad_foreign');
+            $table->string('plate');
+            $table->integer('capacitance');
+            $table->string('brand');
+            $table->string('model');
+            $table->integer('year');
+            $table->string('unit_image');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('envios');
+        Schema::dropIfExists('units');
     }
 };
