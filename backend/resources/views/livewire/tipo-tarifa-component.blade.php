@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="container mt-4">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
@@ -66,4 +67,8 @@
             @endforeach
         </tbody>
     </table>
+=======
+<div>
+    {{-- Success is as dangerous as failure. --}}
+>>>>>>> 3e588dd204e12255f3b31d5a1b1b6ec3434c42ea
 </div>

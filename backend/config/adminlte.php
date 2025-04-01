@@ -197,7 +197,7 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-dark-secondary elevation-4',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-dark navbar-gray-dark',
     'classes_topnav_nav' => 'navbar-expand',
@@ -367,15 +367,150 @@ return [
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
         ],
-        [
-            'text' => 'Tipo Tarifa',
-            'url' => 'tipos-tarifas',
-            'icon' => 'fas fa-fw fa-tags'
-        ],
+
         [
             'text' => 'change_password',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
+        ],
+        ['header' => 'Gestión de Boletos'],
+        [
+            'text' => 'Boletos',
+            'icon' => 'fas fa-ticket-alt',
+            'submenu' => [
+                [
+                    'text' => 'Administrar Boletos',
+                    'url' => '/boletos',
+                    'icon' => 'fas fa-cogs',  // Icono de administración, más variado
+                    'active' => ['boletos'],
+                    'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'boletos') !== false ? 'bg-gradient-orange text-white' : '',
+                ],
+                [
+                    'text' => 'Destinos Intermedios',
+                    'url' => '/destino-intermedio',
+                    'icon' => 'fas fa-map-marked-alt',  // Ícono más preciso para mapas
+                    'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'destino-intermedio') !== false ? 'bg-gradient-orange text-white' : '',
+                ],
+                [
+                    'text' => 'Detalles de Boletos',
+                    'url' => 'admin/detalles-boletos',
+                    'icon' => 'fas fa-info-circle',
+                ],
+            ],
+        ],
+    
+        ['header' => 'Gestión de Ventas'],
+        [
+            'text' => 'Ventas',
+            'icon' => 'fas fa-dollar-sign',  // Cambié a un ícono relacionado con ventas
+            'submenu' => [
+                [
+                    'text' => 'Administrar Ventas',
+                    'url' => '/ventas',
+                    'icon' => 'fas fa-cash-register',
+                    'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'ventas') !== false ? 'bg-gradient-orange text-white' : '',
+                ],
+                [
+                    'text' => 'Detalles de Ventas',
+                    'url' => '/detalles-ventas',
+                    'icon' => 'fas fa-clipboard-list',
+                    'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'detalles-ventas') !== false ? 'bg-gradient-orange text-white' : '',
+                ],
+            ],
+        ],
+    
+        ['header' => 'Gestión de Rutas y Unidades'],
+        [
+            'text' => 'Rutas y Unidades',
+            'icon' => 'fas fa-directions',  // Ícono más relacionado con rutas
+            'submenu' => [
+                [
+                    'text' => 'Administrar Rutas',
+                    'url' => '/ruta',
+                    'icon' => 'fas fa-route',  // Ícono para administración de rutas
+                    'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'ruta') !== false ? 'bg-gradient-orange text-white' : '',
+                ],
+                [
+                    'text' => 'Rutas - Unidades',
+                    'url' => '/rutas-unidades',
+                    'icon' => 'fas fa-bus-alt',
+                    'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'rutas-unidades') !== false ? 'bg-gradient-orange text-white' : '',
+                ],
+                [
+                    'text' => 'Administrar Unidades',
+                    'url' => '/unidades',
+                    'icon' => 'fas fa-shuttle-van',  // Vehículo más general
+                    'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'unidades') !== false ? 'bg-gradient-orange text-white' : '',
+                ],
+            ],
+        ],
+    
+        ['header' => 'Gestión de Tarifas y Horarios'],
+        [
+            'text' => 'Tarifas y Horarios',
+            'icon' => 'fas fa-clock',
+            'submenu' => [
+                [
+                    'text' => 'Administrar Horarios',
+                    'url' => '/horarios',
+                    'icon' => 'fas fa-calendar-day',  // Cambié a un ícono más específico de calendario
+                    'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'horarios') !== false ? 'bg-gradient-orange text-white' : '',
+                ],
+                [
+                    'text' => 'Tipos de Tarifas',
+                    'url' => '/tipos-tarifas',
+                    'icon' => 'fas fa-tag',
+                    'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'tipos-tarifas') !== false ? 'bg-gradient-orange text-white' : '',
+                ],
+            ],
+        ],
+    
+        ['header' => 'Gestión de Usuarios y Permisos'],
+        [
+            'text' => 'Usuarios y Permisos',
+            'icon' => 'fas fa-users-cog',
+            'submenu' => [
+                [
+                    'text' => 'Administrar Usuarios',
+                    'url' => '/usuarios',
+                    'icon' => 'fas fa-user-tie',  // Icono de usuario más específico
+                    'active' => ['usuarios'],
+                    'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'usuarios') !== false ? 'bg-gradient-orange text-white' : '',
+                ],
+                [
+                    'text' => 'Administrar Roles',
+                    'url' => '/roles',
+                    'icon' => 'fas fa-user-shield',
+                    'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'roles') !== false ? 'bg-gradient-orange text-white' : '',
+                ],
+                [
+                    'text' => 'Roles y Permisos',
+                    'url' => '/roles-permisos',
+                    'icon' => 'fas fa-key',
+                    'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'roles-permisos') !== false ? 'bg-gradient-orange text-white' : '',
+                ],
+            ],
+        ],
+    
+        ['header' => 'Otros Módulos'],
+        [
+            'text' => 'Otros',
+            'icon' => 'fas fa-cogs',  // Icono más general de configuración
+            'submenu' => [
+
+                [
+                    'text' => 'Administrar Envíos',
+                    'url' => '/envios',
+                    'icon' => 'fas fa-truck',  // Ícono de camión para envíos
+                    'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'envios') !== false ? 'bg-gradient-orange text-white' : '',
+                ],
+                [
+                    'text' => 'Administrar Conductores',
+                    'url' => '/conductores',
+                    'icon' => 'fas fa-id-card-alt',  // Para conductores, un ícono más relacionado
+                    'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'conductores') !== false ? 'bg-gradient-orange text-white' : '',
+                ],
+            ],
         ],
     ],
 
