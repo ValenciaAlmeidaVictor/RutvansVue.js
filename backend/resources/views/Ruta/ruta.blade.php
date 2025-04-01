@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'RutVans | Rutas')
+@section('title', ' Rutas')
 
 @section('content_header')
     <h1>Gestión de Rutas</h1>

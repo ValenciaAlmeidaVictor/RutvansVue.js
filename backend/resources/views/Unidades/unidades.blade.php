@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'RutVans | Unidades')
+@section('title', ' Unidades')
 
 @section('content_header')
     <h1>Gestión de Unidades</h1>

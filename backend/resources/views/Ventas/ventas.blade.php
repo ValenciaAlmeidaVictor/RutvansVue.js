@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'RutVans | Ventas')
+@section('title', ' Ventas')
 
 @section('content_header')
     <h1>Gestión de Ventas</h1>

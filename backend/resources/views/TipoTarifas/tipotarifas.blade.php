@@ -2,7 +2,7 @@
 
 @extends('adminlte::page')
 
-@section('title', 'RutVans | Tipos_Tarifas')
+@section('title', ' Tipos_Tarifas')
 
 @section('content_header')
         <h1>Gestión de Tipos de Tarifas</h1>

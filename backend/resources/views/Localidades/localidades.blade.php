@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'RutVans | Localidades')
+@section('title', ' Localidades')
 
 @section('content_header')
     <h1>Gestión de Localidades</h1>

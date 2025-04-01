@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'RutVans | Conductores')
+@section('title', ' Conductores')
 
 @section('content_header')
     <h1>Gestión de Conductores</h1>
