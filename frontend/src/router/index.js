@@ -1,32 +1,76 @@
-import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import BoletosView from "../views/BoletosView.vue";
-
-const routes = [
-  {
-    path: "/",
-    name: "home",
-    component: HomeView,
-  },
-  {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-  },
-  {
-    path: "/boletos",
-    name: "boletos",
-    component: BoletosView,
-  },
-];
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
+import UsuarioView from "../views/UsuarioView.vue";
+import PuntoVenta from '../views/PuntoVenta.vue';
+import VentaAsientos from '@/views/VentaAsientos.vue';
+import FormTicket from '@/views/FormTicket.vue';
+import LoginView from '../views/LoginView.vue'
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes,
-});
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView,
+       // Ruta accesible sin autenticación
+    },
+    {
+      path: '/',
+      name: 'home',
+      component: HomeView,
+       // Requiere autenticación
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: () => import('../views/AboutView.vue'),
+      meta: { requiresAuth: false }
+    },
+    {
+      path: "/usuarios",
+      name: "usuarios",
+      component: UsuarioView,
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/punto-venta',
+      name: 'PuntoVenta',
+      component: PuntoVenta,
+      meta: { requiresAuth: false }
+    },
+    {
+      path: '/venta-asientos',
+      name: 'VentaAsientos',
+      component: VentaAsientos,
+      
+    },
+    {
+      path: '/form-ticket',
+      name: 'FormTicket',
+      component: FormTicket,
+      props: true,
+      
+    }
+  ]
+})
 
-export default router;
+// Guardia de navegación global
+/*router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('token')
+  
+  // Si la ruta requiere autenticación y el usuario no está autenticado
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/login')
+  } 
+  // Si el usuario está autenticado pero intenta acceder al login
+  else if (to.name === 'login' && isAuthenticated) {
+    next('/') // Redirige al home
+  } 
+  // En cualquier otro caso, permite la navegación
+  else {
+    next()
+  }
+})*/
+
+export default router

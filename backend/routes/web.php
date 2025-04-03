@@ -3,6 +3,15 @@
 use App\Http\Controllers\EXCELController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\HorarioUnidadController;
+// Ruta de cierre de sesión
+
+Route::get('/logout', function () {
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    auth()->logout();
+    return redirect('/');
+})->name('logout');
 
 
 //chatbot
@@ -98,3 +107,11 @@ Route::get('/ruta', function () {
 })->name('ruta.index');
 // Ruta para la tabla con DataTables ServerSide
 // Route::get('/ventas/data', [VentaController::class, 'getVentas'])->name('ventas.data');
+//Ruta Full calendar
+Route::get('/get-selectors', [HorarioUnidadController::class, 'getSelectors']);
+Route::get('/horarios', [HorarioUnidadController::class, 'index']);
+Route::post('/horarios', [HorarioUnidadController::class, 'store']);
+Route::delete('/horarios/{id}', [HorarioUnidadController::class, 'destroy'])->name('horarios.destroy');
+Route::put('/horarios/{id}', [HorarioUnidadController::class, 'update']);
+
+//Fin Rutas del calendar
