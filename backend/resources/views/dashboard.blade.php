@@ -34,7 +34,7 @@
                     <div class="mt-3">
                         <label for="statusSelect">Estado:</label>
                         <select id="statusSelect" class="form-control">
-                            <option value="activo">Activo</option>
+                            <option value="Activo">Activo</option>
                             <option value="inactivo" selected>Inactivo</option>
                         </select>
                     </div>
@@ -100,7 +100,7 @@
 
                     <label class="block mb-2">Estado:</label>
                     <select id="editStatusSelect" class="form-control">
-                        <option value="activo">Activo</option>
+                        <option value="Activo">Activo</option>
                         <option value="inactivo">Inactivo</option>
                     </select>
                 </div>

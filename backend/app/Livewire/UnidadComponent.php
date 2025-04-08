@@ -3,196 +3,171 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\Unidad;
+use Livewire\WithFileUploads;
+use App\Models\Unit;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 
 class UnidadComponent extends Component
 {
+    use WithFileUploads;
 
-    public $id, $plate, $capacitance, $brand, $model, $year;
+    public $id, $plate, $capacitance, $brand, $model, $year, $unit_image, $oldImage;
     public $isEditMode = false;
     public $isShowMode = false;
 
-    protected $listeners = ['openUnidadModal' => 'loadUnidad',
-    'openShowUnidadModal'=> 'openShowModal',
-    'borrarRegistro',
-    'deleteUnidad',
-    'showConfirmSave',
-    'saveUnidad' => 'save'];
+    protected $listeners = [
+        'openUnidadModal' => 'loadUnidad',
+        'openShowUnidadModal' => 'openShowModal',
+        'borrarRegistro',
+        'deleteUnidad',
+        'showConfirmSave',
+        'saveUnidad' => 'save'
+    ];
 
-    //Metodos de componente
-
-    //Modificaciones opcionales
     public function showConfirmSave($isEditMode)
     {
-        $this->dispatch('swalConfirmSave', ['isEditMode' => $isEditMode]);  // Disparamos el evento swalConfirm con el estado
+        $this->dispatch('swalConfirmSave', ['isEditMode' => $isEditMode]);
     }
-
 
     public function loadUnidad($id)
     {
         $this->resetForm();
-        $unidad = Unidad::find($id);
+        $unidad = Unit::find($id);
 
         if ($unidad) {
+            $this->id = $unidad->id;
             $this->plate = $unidad->plate;
             $this->capacitance = $unidad->capacitance;
             $this->brand = $unidad->brand;
             $this->model = $unidad->model;
             $this->year = $unidad->year;
-              
+            $this->oldImage = $unidad->unit_image; // Guarda la imagen actual
             $this->isEditMode = true;
             $this->isShowMode = false;
         }
 
-        // Enviar evento a JavaScript para abrir el modal de Bootstrap
         $this->dispatch('show-bootstrap-modal');
     }
 
     public function openShowModal($id)
     {
-        $this->id = $id;
-        $unidad = Unidad::find($id); 
-        $this->plate = $unidad->plate;
-        $this->capacitance = $unidad->capacitance;
-        $this->brand = $unidad->brand;
-        $this->model = $unidad->model;
-        $this->year = $unidad->year;
-        $this->isShowMode = true; // Activa el modo de visualización
-        $this->isEditMode = false; // Desactiva el modo de edición
-        $this->dispatch('show-bootstrap-modal'); // Abre el modal
+        $unidad = Unit::find($id);
+        if ($unidad) {
+            $this->id = $unidad->id;
+            $this->plate = $unidad->plate;
+            $this->capacitance = $unidad->capacitance;
+            $this->brand = $unidad->brand;
+            $this->model = $unidad->model;
+            $this->year = $unidad->year;
+            $this->oldImage = $unidad->unit_image;
+            $this->isShowMode = true;
+            $this->isEditMode = false;
+        }
+        $this->dispatch('show-bootstrap-modal');
     }
-
 
     public function closeModal()
     {
-        $this->reset(['isEditMode', 'isShowMode', 'plate', 'capacitance', 'brand', 'id', 'model', 'year']);
-        // Enviar evento a JavaScript para cerrar el modal de Bootstrap
+        $this->resetForm();
         $this->dispatch('hide-bootstrap-modal');
     }
 
     private function resetForm()
     {
-
-        $this->plate = '';
-        $this->capacitance = '';
-        $this->brand = '';
-        $this->model = '';
-        $this->year = '';
-        
-        $this->id = null;
-        $this->isEditMode = false;
+        $this->reset(['id', 'plate', 'capacitance', 'brand', 'model', 'year', 'unit_image', 'oldImage', 'isEditMode', 'isShowMode']);
     }
 
-    //Modificaciones opcionales
-    public function resetModalVariables()
+    public function save()
     {
-        $this->isEditMode = false;
-        $this->isShowMode = false;
-        $this->resetFields();
-    }
+        // Convierte el año a string, como en tu código original
+        $this->year = (string) $this->year;
 
-        public function save()
-        {
-            // Validar los datos antes de guardarlos
-            $this->validate([
-                'plate' => 'required|string|max:255',
-                'capacitance' => 'required|numeric',
-                'brand' => 'required|string|max:255',
-                'model' => 'required|string|max:255',
-                'year'  => 'required|string|max:255',
+        // Validación de los campos
+        $this->validate([
+            'plate' => 'required|string|max:255',
+            'capacitance' => 'required|numeric',
+            'brand' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'year' => 'required|string|max:255',
+            'unit_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+        ]);
 
-                // Agregar las validaciones que necesites
-            ]);
+        if ($this->unit_image) {
+            // Generar un nombre único para la imagen con la fecha y hora actual y agregar el prefijo 'units/'
+            $imageName = 'units/' . now()->format('Y_m_d_His') . '.jpg'; // Guarda con el prefijo 'units/'
 
+            // Guardar la imagen en el directorio 'units' dentro del almacenamiento público
+            $this->unit_image->storeAs('units', basename($imageName), 'public'); // Usamos basename() para asegurarnos de que solo el nombre de archivo se pase
 
-            if ($this->isEditMode) {
-                $unidad = Unidad::find($this->id); // Usamos $this->id que se debe haber asignado previamente
-
-                if ($unidad) {
-
-                    $unidad->plate = $this->plate;
-                    $unidad->capacitance = $this->capacitance;
-                    $unidad->brand = $this->brand;
-                    $unidad->model = $this->model; 
-                    $unidad->year = $this->year; 
-                    $unidad->save(); // Guarda los cambios
-
-                    $this->dispatch('swalSuccessSave');
-                }
-            }  else {
-                
-                Unidad::create([
-                    'plate' => $this->plate,
-                    'capacitance' => $this->capacitance,
-                    'brand' => $this->brand,
-                    'model' => $this->model,
-                    'year' => $this->year,
-                    
-                ]);
-
-                $this->dispatch('swalSuccessSave');
+            // Eliminar la imagen anterior si existe
+            if ($this->oldImage) {
+                Storage::disk('public')->delete($this->oldImage);
             }
-
-            // Cerrar el modal
-            $this->closeModal();
-
-            // Redirigir o actualizar la vista según sea necesario
-            session()->flash('message', $this->isEditMode ? 'Unidad actualizada correctamente.' : 'Unidad creada correctamente.');
-            $this->dispatch('Refresh')->to('unidades-table');
+        } else {
+            $imageName = $this->oldImage; // Si no hay nueva imagen, mantener la anterior
         }
 
-        //Modificaciones opcionales
-        public function openCreateModal()
-        {
-            $this->resetForm(); // Resetea el formulario
-            $this->isEditMode = false; // Establece el modo de creación
-            $this->dispatch('show-bootstrap-modal'); // Muestra el modal
+        // Guardar o actualizar la unidad
+        if ($this->isEditMode) {
+            $unidad = Unit::findOrFail($this->id);
+            $unidad->update([
+                'plate' => $this->plate,
+                'capacitance' => $this->capacitance,
+                'brand' => $this->brand,
+                'model' => $this->model,
+                'year' => $this->year,
+                'unit_image' => $imageName, // Guardar el nombre completo con 'units/' en la base de datos
+            ]);
+        } else {
+            Unit::create([
+                'plate' => $this->plate,
+                'capacitance' => $this->capacitance,
+                'brand' => $this->brand,
+                'model' => $this->model,
+                'year' => $this->year,
+                'unit_image' => $imageName ?? null, // Guardar el nombre completo con 'units/' en la base de datos
+            ]);
         }
 
-
-    public function showModal($id): void
-    {
-        
-        $unidad = Unidad::find($id);
-        if ($unidad) {
-            // Aquí puedes enviar los detalles al modal o a donde lo necesites
-            $this->dispatch('openShowUnidadModal', $unidad);  // Dispatch para abrir un modal con detalles
-        }
+        $this->dispatch('swalSuccessSave');
+        $this->closeModal();
+        $this->dispatch('Refresh')->to('unidades-table');
     }
 
-    //Modificaciones opcionales
+
+
+
+    public function openCreateModal()
+    {
+        $this->resetForm();
+        $this->dispatch('show-bootstrap-modal');
+    }
+
     public function borrarRegistro($id)
     {
-
-        Log::info("ID recibido en borrarRegistro: " . $id);  // Aquí recibimos el ID desde el array
-
+        Log::info("ID recibido en borrarRegistro: " . $id);
         if ($id) {
-            
             $this->dispatch('swalConfirmDelete', ['id' => $id]);
-            Log::info("ID Enviado a swalConfirm: " . $id);
-
         } else {
             Log::error("ID no recibido correctamente.");
         }
     }
 
-    // Método para eliminar
     public function deleteUnidad($id)
     {
-        // Log::info("ID recibido para eliminar la unidad: " . $id);
-
-        $unidad = Unidad::find($id);
+        $unidad = Unit::find($id);
         if ($unidad) {
+            if ($unidad->unit_image) {
+                Storage::disk('public')->delete($unidad->unit_image);
+            }
             $unidad->delete();
             $this->dispatch('Refresh')->to('unidades-table');
             $this->dispatch('swalSuccess');
-            session()->flash('message', 'Unidad eliminada correctamente.');
         } else {
             session()->flash('error', 'Unidad no encontrada.');
         }
     }
-
 
     public function render()
     {

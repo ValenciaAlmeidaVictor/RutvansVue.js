@@ -78,7 +78,7 @@ Route::get('/ventas/data', [VentaComponent::class, 'getVentas'])->name('ventas.d
 Route::get('/tipotarifa', [TipoTarifaController::class, 'index'])->name('tipotarifa.index');
 
 
-Route::get('/horarios', function () {
+Route::get('/horario', function () {
     return view('Horarios.horarios');
 })->name('horarios.index');
 
@@ -115,3 +115,27 @@ Route::delete('/horarios/{id}', [HorarioUnidadController::class, 'destroy'])->na
 Route::put('/horarios/{id}', [HorarioUnidadController::class, 'update']);
 
 //Fin Rutas del calendar
+
+Route::get('/roles', [RolesController::class, 'index'])->name('roles.index');
+
+use App\Http\Controllers\PuntoVentaController;
+
+Route::get('/punto-venta', [PuntoVentaController::class, 'index'])->name('punto-venta.index');
+
+use App\Http\Controllers\UnitsTableController;
+
+Route::get('/unidades', [UnitsTableController::class, 'index'])->name('unitsTable.index');
+// routes/web.php
+Route::get('/units/create', [UnitsTableController::class, 'create'])->name('unitsTable.create');
+
+
+
+
+Route::get('/permissions', [PermissionsController::class, 'index'])->name('permissions.index');
+Route::get('/roles-permissions', [RolesPermissionsController::class, 'index'])->name('roles-permissions.index');
+
+
+
+//Route::get('/unidades', function () {
+   // return view('Unidades.unidades');
+//})->name('unidades.index'); //

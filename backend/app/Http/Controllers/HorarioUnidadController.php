@@ -19,7 +19,7 @@ class HorarioUnidadController extends Controller
                 'id' => $horario->id,
                 'title' => "{$horario->unit->plate} - {$horario->driver->name}",
                 'start' => $horario->day, 
-                'backgroundColor' => $horario->status === 'activo' ? 'green' : 'red',
+                'backgroundColor' => $horario->status === 'Activo' ? 'green' : 'red',
                 'borderColor' => 'black',
                 'extendedProps' => [
                     'driver' => $horario->driver->name,
@@ -41,7 +41,7 @@ class HorarioUnidadController extends Controller
             'id_Units' => 'required|integer',
             'id_Schedules' => 'required|integer',
             'id_Driver' => 'required|integer',
-            'status' => 'required|in:activo,inactivo'
+            'status' => 'required|in:Activo,inActivo'
         ]);
 
         $horario = HorarioUnidad::create([
@@ -75,7 +75,7 @@ class HorarioUnidadController extends Controller
             'id_Units' => 'required|integer',
             'id_Schedules' => 'required|integer',
             'id_Driver' => 'required|integer',
-            'status' => 'required|in:activo,inactivo'
+            'status' => 'required|in:Activo,inActivo'
         ]);
 
         $horario = HorarioUnidad::find($id);

@@ -452,7 +452,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Administrar Horarios',
-                    'url' => '/horarios',
+                    'url' => '/horario',
                     'icon' => 'fas fa-calendar-day',  // Cambié a un ícono más específico de calendario
                     'classes' => isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'horarios') !== false ? 'bg-gradient-orange text-white' : '',
                 ],
