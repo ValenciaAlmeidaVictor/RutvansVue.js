@@ -10,6 +10,7 @@
         
         <nav class="main-nav">
           <router-link to="/">Inicio</router-link>
+          <router-link to="/ventas">Ventas</router-link>
           <router-link to="/punto-venta">Punto de Venta</router-link>
           <router-link to="/envios">Envíos</router-link>
           <router-link to="/alquilar">Alquilar Servicio</router-link>

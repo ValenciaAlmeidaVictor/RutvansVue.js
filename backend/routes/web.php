@@ -73,6 +73,10 @@ Route::get('/ventas', function () {
     return view('Ventas.ventas');
 })->name('ventas.index');
 
+Route::get('/tickets', function () {
+    return view('Tickets.tickets');
+})->name('tickets.index');
+
 Route::get('/ventas/data', [VentaComponent::class, 'getVentas'])->name('ventas.data');
 
 Route::get('/tipotarifa', [TipoTarifaController::class, 'index'])->name('tipotarifa.index');
@@ -130,6 +134,8 @@ Route::get('/units/create', [UnitsTableController::class, 'create'])->name('unit
 
 
 
+
+Route::get('ventas/pdf/{id}', [ App\Http\Controllers\VentaController::class, 'generatePDF'])->name('ventas.pdf');
 
 Route::get('/permissions', [PermissionsController::class, 'index'])->name('permissions.index');
 Route::get('/roles-permissions', [RolesPermissionsController::class, 'index'])->name('roles-permissions.index');

@@ -5,6 +5,7 @@ import PuntoVenta from '../views/PuntoVenta.vue';
 import VentaAsientos from '@/views/VentaAsientos.vue';
 import FormTicket from '@/views/FormTicket.vue';
 import LoginView from '../views/LoginView.vue'
+import Ventas from '@/views/Ventas.vue'; 
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       name: "usuarios",
       component: UsuarioView,
       meta: { requiresAuth: false }
+    },
+    {
+      path: '/ventas',
+      name: 'Ventas',
+      component: Ventas
     },
     {
       path: '/punto-venta',

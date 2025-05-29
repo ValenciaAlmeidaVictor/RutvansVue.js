@@ -126,7 +126,15 @@ class VentasTable extends DataTableComponent
                         'wire:click.prevent' => 'deleteVentaTable(' . $row->id . ')',
                     ])
                     ->html(),
-                    
+                          // ✅ Botón PDF
+        LinkColumn::make('PDF')
+        ->title(fn($row) => '<i class="fas fa-file-pdf"></i>')
+        ->location(fn($row) => route('ventas.pdf', $row->id))
+        ->attributes(fn($row) => [
+            'class' => 'btn btn-secondary w-8 h-8 flex items-center justify-center rounded-md hover:bg-gray-700',
+            'target' => '_blank', // abre en nueva pestaña
+        ])
+        ->html(),
                 ]),
         ];
     }
